@@ -1,0 +1,30 @@
+# Nav2 params for the fused-localization AMR. Trimmed to the settings
+# that matter most for the "consume fused odom, not raw AMCL" design.
+
+controller_server:
+  ros__parameters:
+    controller_frequency: 15.0   # matched to the fused control loop rate
+    odom_topic: /odometry/filtered
+
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 10.0
+      publish_frequency: 5.0
+      global_frame: odom
+      robot_base_frame: base_link
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0
+      global_frame: map
+      robot_base_frame: base_link
+
+amcl:
+  ros__parameters:
+    min_particles: 500
+    max_particles: 2000
+    odom_frame_id: odom
+    base_frame_id: base_link
+    global_frame_id: map

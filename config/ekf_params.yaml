@@ -1,0 +1,33 @@
+ekf_filter_node:
+  ros__parameters:
+    frequency: 15.0          # matches the project's headline 15Hz control loop
+    two_d_mode: true
+    odom_frame: odom
+    base_link_frame: base_link
+    world_frame: odom
+
+    # Wheel odometry: trust position/orientation moderately, it drifts slowly.
+    odom0: /wheel/odom
+    odom0_config: [true,  true,  false,
+                   false, false, true,
+                   false, false, false,
+                   false, false, true,
+                   false, false, false]
+
+    # Visual odometry: high-rate but drift-prone -> weight velocity more than absolute position.
+    odom1: /visual_odom
+    odom1_config: [false, false, false,
+                   false, false, false,
+                   true,  true,  false,
+                   false, false, true,
+                   false, false, false]
+
+    # AMCL pose: globally-corrected but low-rate -> strong correction on position/orientation.
+    pose0: /amcl_pose
+    pose0_config: [true,  true,  false,
+                   false, false, true,
+                   false, false, false,
+                   false, false, false,
+                   false, false, false]
+    pose0_differential: false
+    pose0_relative: false
